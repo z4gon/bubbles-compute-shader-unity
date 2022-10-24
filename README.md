@@ -1,13 +1,12 @@
-# Unity Template Project for Built-in RP
+# Basic Compute Shaders
 
-{{YOUR_PROJECT_DESCRIPTION_HERE}} in **Unity 2021.3.10f1**
+Written in HLSL in **Unity 2021.3.10f1**
 
 ### References
 
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)
+- [Compute Shaders course by Nik Lever](https://www.udemy.com/course/compute-shaders)
 
-## Screenshots
+<!-- ## Screenshots
 
 ![Gif](./docs/1.gif)
 ![Gif](./docs/1.gif)
@@ -50,4 +49,4 @@
 1. **Step**
 
    1. Sub Step.
-   1. Sub Step.
+   1. Sub Step. -->
