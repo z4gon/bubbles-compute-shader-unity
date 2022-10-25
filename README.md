@@ -21,6 +21,7 @@ https://user-images.githubusercontent.com/4588601/197791116-834b7201-975e-4280-8
   - [Kernel Index](#kernel-index)
   - [Texture Assignment](#texture-assignment)
   - [Dispatching](#dispatching)
+- [Multiple Kernels](#multiple-kernels)
 
 ## Definition of the Compute Shader
 
@@ -113,3 +114,26 @@ computeShader.Dispatch(_kernelIndex, x, y, 1);
 <!-- 1.mp4 -->
 
 https://user-images.githubusercontent.com/4588601/197791116-834b7201-975e-4280-89fb-c26432eb9b5b.mp4
+
+## Multiple Kernels
+
+- The **Compute Shader** can have more than one **#pragma** declaration to define kernels.
+- Then in the C# code, a reference to each **kernel** can be kept and used separately.
+
+```c
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel SolidRed
+#pragma kernel SolidYellow
+
+[numthreads(8,8,1)]
+void SolidRed (uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy] = float4(1, 0, 0, 1);
+}
+
+[numthreads(8,8,1)]
+void SolidYellow (uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy] = float4(1, 1, 0, 1);
+}
+```

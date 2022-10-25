@@ -1,10 +1,17 @@
 using UnityEngine;
 
+public enum KernelName
+{
+    SolidRed,
+    SolidYellow
+}
+
 public class AssignTexture : MonoBehaviour
 {
     private const int TEXTURE_RESOLUTION = 256;
 
     public ComputeShader computeShader;
+    public KernelName KernelName = KernelName.SolidRed;
 
     // our compute shader has numthreads(8,8,1) per each thread group
     // 32 thread groups means 32 * 8 = 256 pixels, that covers the whole texture
@@ -45,7 +52,7 @@ public class AssignTexture : MonoBehaviour
     private void InitShader()
     {
         // get a reference to the kernel defined in the #pragma inside the compute shader
-        _kernelIndex = computeShader.FindKernel("CSMain");
+        _kernelIndex = computeShader.FindKernel(KernelName.ToString());
 
         // set the texture to the compute shader, so it can write to it
         computeShader.SetTexture(_kernelIndex, "Result", _renderTexture);
