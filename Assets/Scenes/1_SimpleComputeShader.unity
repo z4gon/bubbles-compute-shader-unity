@@ -276,6 +276,14 @@ PrefabInstance:
       propertyPath: KernelName
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
 --- !u!1 &963194225
@@ -421,6 +429,14 @@ PrefabInstance:
       propertyPath: KernelName
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
 --- !u!1001 &1351129215
@@ -480,6 +496,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
       propertyPath: KernelName
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -543,6 +567,14 @@ PrefabInstance:
       propertyPath: KernelName
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
 --- !u!1001 &342186127902508962
@@ -599,6 +631,10 @@ PrefabInstance:
     - target: {fileID: 342186126388799012, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 342186126388799013, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}
+      propertyPath: KernelNames.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dee7a22667784ace9cd0e0831dc4a66, type: 3}

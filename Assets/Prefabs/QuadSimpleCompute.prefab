@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   computeShader: {fileID: 7200000, guid: e3898a3b8060b402a8be8de7777c9d53, type: 3}
-  KernelName: 0
+  KernelNames: 00000000
   ThreadGroupsX: 32
   ThreadGroupsY: 32
   CirclePositionAndRadius: {x: 80, y: 130, z: 64}

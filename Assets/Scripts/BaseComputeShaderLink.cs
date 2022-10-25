@@ -11,16 +11,17 @@ public enum KernelName
 
 public class BaseComputeShaderLink : MonoBehaviour
 {
-    private const int TEXTURE_RESOLUTION = 256;
+    protected const int TEXTURE_RESOLUTION = 256;
 
     public ComputeShader computeShader;
 
-    private Renderer _renderer;
-    private RenderTexture _renderTexture;
     public KernelName[] KernelNames;
 
-    private int[] _kernelIndexes;
-    private bool _isInitialized = false;
+    protected Renderer _renderer;
+    protected RenderTexture _renderTexture;
+
+    protected int[] _kernelIndexes;
+    protected bool _isInitialized = false;
 
     protected virtual void Start()
     {
@@ -43,6 +44,8 @@ public class BaseComputeShaderLink : MonoBehaviour
 
     protected virtual void InitShader()
     {
+        _kernelIndexes = new int[KernelNames.Length];
+
         for (int i = 0; i < KernelNames.Length; i++)
         {
             // get a reference to the kernel defined in the #pragma inside the compute shader
@@ -55,8 +58,6 @@ public class BaseComputeShaderLink : MonoBehaviour
 
         // set the texture to the material, so it can use the texture
         _renderer.material.SetTexture("_MainTex", _renderTexture);
-
-        _isInitialized = true;
     }
 
     // dispatches the kernel with the amount of thread groups = x * y * 1
