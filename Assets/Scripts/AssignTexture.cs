@@ -4,7 +4,8 @@ public enum KernelName
 {
     SolidRed,
     SolidYellow,
-    SplitScreen
+    SplitScreen,
+    Circle
 }
 
 public class AssignTexture : MonoBehaviour
