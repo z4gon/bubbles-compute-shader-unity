@@ -1,5 +1,5 @@
 // Each #kernel tells which function to compile; you can have many kernels
-#pragma kernel DrawCircle
+#pragma kernel Circle
 
 #include "./shared/Bresenham.hlsl"
 
@@ -10,7 +10,7 @@ float3 CirclePositionAndRadius;
 float4 CircleColor;
 
 [numthreads(1,1,1)]
-void DrawCircle (uint3 id : SV_DispatchThreadID)
+void Circle (uint3 id : SV_DispatchThreadID)
 {
     drawCircle(CirclePositionAndRadius.xy, CirclePositionAndRadius.z, CircleColor, Result);
 }
