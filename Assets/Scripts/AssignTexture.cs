@@ -6,7 +6,7 @@ public class AssignTexture : MonoBehaviour
 
     public ComputeShader computeShader;
 
-    // our compute shader will have numthreads(8,8,1) per each thread group
+    // our compute shader has numthreads(8,8,1) per each thread group
     // 32 thread groups means 32 * 8 = 256 pixels, that covers the whole texture
 
     [Range(0, 32)]
