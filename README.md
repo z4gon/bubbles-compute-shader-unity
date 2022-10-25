@@ -19,6 +19,7 @@ Written in HLSL in **Unity 2021.3.10f1**
 - [Using Group ID and Thread ID](#using-group-id-and-thread-id)
   - [Painting each quadrant with a different color](#painting-each-quadrant-with-a-different-color)
   - [Circle](#circle)
+  - [Square](#square)
 
 ## Definition of the Compute Shader
 
@@ -157,8 +158,10 @@ https://user-images.githubusercontent.com/4588601/197801280-3977400e-b9eb-470c-9
 [numthreads(8,8,1)]
 void SplitScreen (uint3 id : SV_DispatchThreadID)
 {
-    float4 green = float4(0, 1, 0, 1) * step(127, id.y);
-    float4 red = float4(1, 0, 0, 1) * step(127, id.x);
+    float halfTextureSize = 127;
+
+    float4 green = float4(0, 1, 0, 1) * step(halfTextureSize, id.y);
+    float4 red = float4(1, 0, 0, 1) * step(halfTextureSize, id.x);
 
     Result[id.xy] = green + red;
 }
@@ -176,13 +179,36 @@ https://user-images.githubusercontent.com/4588601/197843481-7bda9e1b-7f7c-4e62-b
 [numthreads(8,8,1)]
 void Circle (uint3 id : SV_DispatchThreadID)
 {
+    float desiredRadius = 64.0;
     float center = 127.0;
-    float radius = length(id.xy - center);
+    float distanceToCenter = length(id.xy - center);
 
-    float isInCircle = 1 - step(64, radius);
+    float isInCircle = 1 - step(desiredRadius, distanceToCenter);
 
     Result[id.xy] = float4(1, 0, 0, 1) * isInCircle;
 }
 ```
 
 ![Picture](./docs/4.png)
+
+### Square
+
+- Paint with red only pixels that are inside the square.
+
+```c
+[numthreads(8,8,1)]
+void Square (uint3 id : SV_DispatchThreadID)
+{
+    float center = 127.0;
+    float width = 64.0;
+    float halfWidth = width / 2;
+
+    float isInRectX = step(center - halfWidth, id.x) - step(center + halfWidth, id.x);
+    float isInRectY = step(center - halfWidth, id.y) - step(center + halfWidth, id.y);
+    float isInRect = isInRectX * isInRectY;
+
+    Result[id.xy] = float4(0, 0, 1, 1) * isInRect;
+}
+```
+
+![Picture](./docs/5.png)

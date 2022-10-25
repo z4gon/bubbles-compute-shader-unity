@@ -3,6 +3,7 @@
 #pragma kernel SolidYellow
 #pragma kernel SplitScreen
 #pragma kernel Circle
+#pragma kernel Square
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
@@ -23,8 +24,10 @@ void SolidYellow (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void SplitScreen (uint3 id : SV_DispatchThreadID)
 {
-    float4 green = float4(0, 1, 0, 1) * step(127, id.y);
-    float4 red = float4(1, 0, 0, 1) * step(127, id.x);
+    float halfTextureSize = 127;
+
+    float4 green = float4(0, 1, 0, 1) * step(halfTextureSize, id.y);
+    float4 red = float4(1, 0, 0, 1) * step(halfTextureSize, id.x);
 
     Result[id.xy] = green + red;
 }
@@ -32,10 +35,25 @@ void SplitScreen (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void Circle (uint3 id : SV_DispatchThreadID)
 {
+    float desiredRadius = 64.0;
     float center = 127.0;
-    float radius = length(id.xy - center);
+    float distanceToCenter = length(id.xy - center);
 
-    float isInCircle = 1 - step(64, radius);
+    float isInCircle = 1 - step(desiredRadius, distanceToCenter);
 
     Result[id.xy] = float4(1, 0, 0, 1) * isInCircle;
+}
+
+[numthreads(8,8,1)]
+void Square (uint3 id : SV_DispatchThreadID)
+{
+    float center = 127.0;
+    float width = 64.0;
+    float halfWidth = width / 2;
+
+    float isInRectX = step(center - halfWidth, id.x) - step(center + halfWidth, id.x);
+    float isInRectY = step(center - halfWidth, id.y) - step(center + halfWidth, id.y);
+    float isInRect = isInRectX * isInRectY;
+
+    Result[id.xy] = float4(0, 0, 1, 1) * isInRect;
 }
