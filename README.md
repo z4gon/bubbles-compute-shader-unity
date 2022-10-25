@@ -168,3 +168,21 @@ void SplitScreen (uint3 id : SV_DispatchThreadID)
 
 https://user-images.githubusercontent.com/4588601/197843481-7bda9e1b-7f7c-4e62-b912-acd9810b9cf9.mp4
 
+### Circle
+
+- Paint with red only pixels that are inside the circle.
+
+```c
+[numthreads(8,8,1)]
+void Circle (uint3 id : SV_DispatchThreadID)
+{
+    float center = 127.0;
+    float radius = length(id.xy - center);
+
+    float isInCircle = 1 - step(64, radius);
+
+    Result[id.xy] = float4(1, 0, 0, 1) * isInCircle;
+}
+```
+
+![Picture](./docs/4.png)
