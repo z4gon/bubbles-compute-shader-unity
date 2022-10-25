@@ -42,7 +42,7 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 
 ## Dispatching the Compute Shader
 
-#### Render Texture
+### Render Texture
 
 - Create a **Render Texture** object, which will act as the output of the **Compute Shader** computation.
 
@@ -60,7 +60,7 @@ _renderTexture.enableRandomWrite = true;
 _renderTexture.Create();
 ```
 
-#### Renderer
+### Renderer
 
 - Get a hold of the current **Renderer** of the game object's mesh.
 
@@ -69,7 +69,7 @@ _renderer = GetComponent<Renderer>();
 _renderer.enabled = true;
 ```
 
-#### Kernel Index
+### Kernel Index
 
 - Get a reference to the **kernel** id from the **Compute Shader**, which corresponds to the main function being executed.
 
@@ -78,7 +78,7 @@ _renderer.enabled = true;
 _kernelIndex = computeShader.FindKernel("CSMain");
 ```
 
-#### Texture Assignment
+### Texture Assignment
 
 - Assign the **Render Texture** to the **Compute Shader**, so that it can write to it.
 - Assign the **Render Texture** to the **Material** in the renderer, so it can use it.
@@ -91,7 +91,7 @@ computeShader.SetTexture(_kernelIndex, "Result", _renderTexture);
 _renderer.material.SetTexture("_MainTex", _renderTexture);
 ```
 
-#### Dispatching
+### Dispatching
 
 - Our compute shader has **numthreads(8,8,1)** per each thread group.
 - That means it will compute a square of 8x8x1 pixels or threads, per each thread group.
