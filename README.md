@@ -104,4 +104,8 @@ _renderer.material.SetTexture("_MainTex", _renderTexture);
 computeShader.Dispatch(_kernelIndex, x, y, 1);
 ```
 
-![Video](./docs/1.mp4)
+![Video]([./docs/1.mp4](https://user-images.githubusercontent.com/4588601/197791116-834b7201-975e-4280-89fb-c26432eb9b5b.mp4))
+
+
+
+
