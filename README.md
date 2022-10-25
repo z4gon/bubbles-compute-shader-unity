@@ -140,6 +140,10 @@ void SolidYellow (uint3 id : SV_DispatchThreadID)
 }
 ```
 
+<!-- 2.mp4 -->
+
+https://user-images.githubusercontent.com/4588601/197801280-3977400e-b9eb-470c-9e31-303aa82918fa.mp4
+
 ## Using Group ID and Thread ID
 
 - When the **Compute Shader** is dispatched, we indicate how many thread groups there will be, **32x32** thread groups mean **32** in each axis.
