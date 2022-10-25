@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SimpleComputeShaderLink : BaseComputeShaderLink
+public class SimpleComputeShaderDispatcher : BaseComputeShaderDispatcher
 {
     // our compute shader has numthreads(8,8,1) per each thread group
     // 32 thread groups means 32 * 8 = 256 pixels, that covers the whole texture

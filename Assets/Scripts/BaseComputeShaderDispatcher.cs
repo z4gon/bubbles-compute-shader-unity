@@ -1,15 +1,6 @@
 using UnityEngine;
 
-public enum KernelName
-{
-    SolidRed,
-    SolidYellow,
-    SplitScreen,
-    Circle,
-    Rectangle
-}
-
-public class BaseComputeShaderLink : MonoBehaviour
+public class BaseComputeShaderDispatcher : MonoBehaviour
 {
     protected const int TEXTURE_RESOLUTION = 256;
 

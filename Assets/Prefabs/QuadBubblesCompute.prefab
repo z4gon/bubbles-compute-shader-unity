@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   computeShader: {fileID: 7200000, guid: 058461703bb5d46718f2bea47a1770be, type: 3}
-  KernelNames: 03000000
+  KernelNames: 0600000005000000
   CirclePositionAndRadius: {x: 127, y: 127, z: 64}
-  CircleColor: {r: 1, g: 0, b: 0, a: 1}
+  CircleColor: {r: 0.69548666, g: 0, b: 0.7075472, a: 1}
+  BackgroundColor: {r: 0.008899963, g: 0.015789527, b: 0.0754717, a: 1}
