@@ -137,3 +137,9 @@ void SolidYellow (uint3 id : SV_DispatchThreadID)
     Result[id.xy] = float4(1, 1, 0, 1);
 }
 ```
+
+<!-- 2.mp4 -->
+
+https://user-images.githubusercontent.com/4588601/197801280-3977400e-b9eb-470c-9e31-303aa82918fa.mp4
+
+
