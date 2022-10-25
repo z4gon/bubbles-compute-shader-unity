@@ -2,12 +2,6 @@
 
 Written in HLSL in **Unity 2021.3.10f1**
 
-## Screenshots
-
-<!-- 1.mp4 -->
-
-https://user-images.githubusercontent.com/4588601/197791116-834b7201-975e-4280-89fb-c26432eb9b5b.mp4
-
 ### References
 
 - [Compute Shaders course by Nik Lever](https://www.udemy.com/course/compute-shaders)
@@ -169,3 +163,8 @@ void SplitScreen (uint3 id : SV_DispatchThreadID)
     Result[id.xy] = green + red;
 }
 ```
+
+<!-- 3.mp4 -->
+
+https://user-images.githubusercontent.com/4588601/197843481-7bda9e1b-7f7c-4e62-b912-acd9810b9cf9.mp4
+
