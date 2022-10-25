@@ -1,6 +1,7 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel SolidRed
 #pragma kernel SolidYellow
+#pragma kernel SplitScreen
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
@@ -16,4 +17,13 @@ void SolidRed (uint3 id : SV_DispatchThreadID)
 void SolidYellow (uint3 id : SV_DispatchThreadID)
 {
     Result[id.xy] = float4(1, 1, 0, 1);
+}
+
+[numthreads(8,8,1)]
+void SplitScreen (uint3 id : SV_DispatchThreadID)
+{
+    float4 green = float4(0, 1, 0, 1) * step(127, id.y);
+    float4 red = float4(1, 0, 0, 1) * step(127, id.x);
+
+    Result[id.xy] = green + red;
 }

@@ -22,6 +22,8 @@ https://user-images.githubusercontent.com/4588601/197791116-834b7201-975e-4280-8
   - [Texture Assignment](#texture-assignment)
   - [Dispatching](#dispatching)
 - [Multiple Kernels](#multiple-kernels)
+- [Using Group ID and Thread ID](#using-group-id-and-thread-id)
+  - [Painting each quadrant with a different color](#painting-each-quadrant-with-a-different-color)
 
 ## Definition of the Compute Shader
 
@@ -135,5 +137,30 @@ void SolidRed (uint3 id : SV_DispatchThreadID)
 void SolidYellow (uint3 id : SV_DispatchThreadID)
 {
     Result[id.xy] = float4(1, 1, 0, 1);
+}
+```
+
+## Using Group ID and Thread ID
+
+- When the **Compute Shader** is dispatched, we indicate how many thread groups there will be, **32x32** thread groups mean **32** in each axis.
+- Given the **numthreads(8,8,1)**, each thread will handle **8x8** pixels of the total **256x256** pixels of the texture.
+- If we are in the **thread group id (1,2,0)** and in the **thread id (3,4,0)**, that means we will be in the pixel given by **(1,2,0) \* (8,8,1) + (3,4,0) = (1\*8 + 3, 2\*8 + 4, 0\*1 + 0)**, which is pixel **(11, 20, 0)**.
+
+### Painting each quadrant with a different color
+
+- The following code makes each quadrant be:
+  - **Left-Bottom** quadrant will be **black**.
+  - **Left-Top** quadrant will be **green**.
+  - **Right-Top** quadrant will be **yellow**.
+  - **Right-Bottom** quadrant will be **red**.
+
+```c
+[numthreads(8,8,1)]
+void SplitScreen (uint3 id : SV_DispatchThreadID)
+{
+    float4 green = float4(0, 1, 0, 1) * step(127, id.y);
+    float4 red = float4(1, 0, 0, 1) * step(127, id.x);
+
+    Result[id.xy] = green + red;
 }
 ```

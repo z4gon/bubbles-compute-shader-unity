@@ -3,7 +3,8 @@ using UnityEngine;
 public enum KernelName
 {
     SolidRed,
-    SolidYellow
+    SolidYellow,
+    SplitScreen
 }
 
 public class AssignTexture : MonoBehaviour
