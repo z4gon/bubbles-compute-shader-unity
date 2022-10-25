@@ -20,6 +20,7 @@ Written in HLSL in **Unity 2021.3.10f1**
   - [Painting each quadrant with a different color](#painting-each-quadrant-with-a-different-color)
   - [Circle](#circle)
   - [Square](#square)
+- [Passing values to the Compute Shader](#passing-values-to-the-compute-shader)
 
 ## Definition of the Compute Shader
 
@@ -158,7 +159,7 @@ https://user-images.githubusercontent.com/4588601/197801280-3977400e-b9eb-470c-9
 [numthreads(8,8,1)]
 void SplitScreen (uint3 id : SV_DispatchThreadID)
 {
-    float halfTextureSize = 127;
+    float halfTextureSize = TextureResolution / 2;
 
     float4 green = float4(0, 1, 0, 1) * step(halfTextureSize, id.y);
     float4 red = float4(1, 0, 0, 1) * step(halfTextureSize, id.x);
@@ -179,8 +180,8 @@ https://user-images.githubusercontent.com/4588601/197843481-7bda9e1b-7f7c-4e62-b
 [numthreads(8,8,1)]
 void Circle (uint3 id : SV_DispatchThreadID)
 {
-    float desiredRadius = 64.0;
-    float center = 127.0;
+    float desiredRadius = CirclePositionAndRadius.z;
+    float center = CirclePositionAndRadius.xy;
     float distanceToCenter = length(id.xy - center);
 
     float isInCircle = 1 - step(desiredRadius, distanceToCenter);
@@ -199,12 +200,14 @@ void Circle (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void Square (uint3 id : SV_DispatchThreadID)
 {
-    float center = 127.0;
-    float width = 64.0;
+    float center = RectPositionAndSize.xy;
+    float width = RectPositionAndSize.z;
+    float height = RectPositionAndSize.w;
     float halfWidth = width / 2;
+    float halfHeight = height / 2;
 
     float isInRectX = step(center - halfWidth, id.x) - step(center + halfWidth, id.x);
-    float isInRectY = step(center - halfWidth, id.y) - step(center + halfWidth, id.y);
+    float isInRectY = step(center - halfHeight, id.y) - step(center + halfHeight, id.y);
     float isInRect = isInRectX * isInRectY;
 
     Result[id.xy] = float4(0, 0, 1, 1) * isInRect;
@@ -212,3 +215,38 @@ void Square (uint3 id : SV_DispatchThreadID)
 ```
 
 ![Picture](./docs/5.png)
+
+## Passing values to the Compute Shader
+
+- Values can be passed from **C#** into the **HLSL** code.
+
+> MyScript.cs
+
+```cs
+private const int TEXTURE_RESOLUTION = 256;
+
+public Vector3 CirclePositionAndRadius = new Vector3(0, 0, 64);
+public Vector4 RectPositionAndSize = new Vector4(0, 0, 64, 64);
+
+private RenderTexture _renderTexture;
+```
+
+```cs
+// set the texture to the compute shader, so it can write to it
+computeShader.SetTexture(_kernelIndex, "Result", _renderTexture);
+computeShader.SetInt("TextureResolution", TEXTURE_RESOLUTION);
+computeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
+computeShader.SetVector("RectPositionAndSize", RectPositionAndSize);
+```
+
+> MyCompureShader.compute
+
+```c
+RWTexture2D<float4> Result;
+int TextureResolution;
+float3 CirclePositionAndRadius;
+float4 RectPositionAndSize;
+```
+
+![Picture](./docs/6.png)
+![Picture](./docs/7.png)

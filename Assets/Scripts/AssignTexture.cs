@@ -6,7 +6,7 @@ public enum KernelName
     SolidYellow,
     SplitScreen,
     Circle,
-    Square
+    Rectangle
 }
 
 public class AssignTexture : MonoBehaviour
@@ -24,6 +24,9 @@ public class AssignTexture : MonoBehaviour
 
     [Range(0, 32)]
     public int ThreadGroupsY = 16;
+
+    public Vector3 CirclePositionAndRadius = new Vector3(0, 0, 64);
+    public Vector4 RectPositionAndSize = new Vector4(0, 0, 64, 64);
 
     private Renderer _renderer;
     private RenderTexture _renderTexture;
@@ -59,6 +62,9 @@ public class AssignTexture : MonoBehaviour
 
         // set the texture to the compute shader, so it can write to it
         computeShader.SetTexture(_kernelIndex, "Result", _renderTexture);
+        computeShader.SetInt("TextureResolution", TEXTURE_RESOLUTION);
+        computeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
+        computeShader.SetVector("RectPositionAndSize", RectPositionAndSize);
 
         // set the texture to the material, so it can use the texture
         _renderer.material.SetTexture("_MainTex", _renderTexture);

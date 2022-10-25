@@ -416,3 +416,5 @@ MonoBehaviour:
   KernelName: 4
   ThreadGroupsX: 32
   ThreadGroupsY: 32
+  CirclePositionAndRadius: {x: 80, y: 130, z: 64}
+  RectPositionAndSize: {x: 150, y: 200, z: 70, w: 140}
