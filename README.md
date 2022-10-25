@@ -25,6 +25,7 @@ Written in HLSL in **Unity 2021.3.10f1**
 - [Passing values to the Compute Shader](#passing-values-to-the-compute-shader)
 - [Bubbles](#bubbles)
   - [Draw a Circle](#draw-a-circle)
+  - [Share Texture between Kernels](#share-texture-between-kernels)
 
 ## Definition of the Compute Shader
 
@@ -311,3 +312,20 @@ void drawCircle(uint2 center, uint radius, float4 color, RWTexture2D<float4> out
 ```
 
 ![Picture](./docs/8.png)
+
+### Share Texture between Kernels
+
+- The same texture can be shared between kernels.
+
+> MyComputeShader.compute
+
+```c
+shared RWTexture2D<float4> Result;
+```
+
+> MyScript.cs
+
+```cs
+computeShader.SetTexture(_kernelIndexesA, "Result", _renderTexture);
+computeShader.SetTexture(_kernelIndexesB, "Result", _renderTexture);
+```
