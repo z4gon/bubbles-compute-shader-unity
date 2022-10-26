@@ -1,8 +1,9 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel SingleBubble
+#pragma kernel RandomBubbles
 #pragma kernel BubblesBackground
 
-#include "./shared/Bresenham.hlsl"
+#include "./shared/BresenhamCircle.hlsl"
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
@@ -21,4 +22,10 @@ void SingleBubble (uint3 id : SV_DispatchThreadID)
 void BubblesBackground (uint3 id : SV_DispatchThreadID)
 {
     Result[id.xy] = BackgroundColor;
+}
+
+[numthreads(8,1,1)]
+void RandomBubbles (uint3 id : SV_DispatchThreadID)
+{
+    drawCircle(CirclePositionAndRadius.xy, CirclePositionAndRadius.z, CircleColor, Result);
 }

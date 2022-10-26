@@ -6,5 +6,7 @@ public enum KernelName
     Circle,
     Rectangle,
     SingleBubble,
-    BubblesBackground
+    BubblesBackground,
+    RandomBubbles,
+    ManyBubbles,
 }

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MyMaterial
+  m_Name: SingleTextureMaterial
   m_Shader: {fileID: 4800000, guid: 917b4c61521184e47bd9722ee35c085e, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
