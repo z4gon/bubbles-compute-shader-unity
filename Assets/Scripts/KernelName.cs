@@ -8,5 +8,5 @@ public enum KernelName
     SingleBubble,
     BubblesBackground,
     RandomBubbles,
-    ManyBubbles,
+    MovingBubbles,
 }

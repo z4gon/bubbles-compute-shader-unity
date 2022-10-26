@@ -27,6 +27,10 @@ Written in HLSL in **Unity 2021.3.10f1**
   - [Draw a Circle](#draw-a-circle)
   - [Share Texture between Kernels](#share-texture-between-kernels)
   - [Randomness](#randomness)
+- [Memory Buffers](#memory-buffers)
+  - [CPU and GPU structs](#cpu-and-gpu-structs)
+  - [GPU memory](#gpu-memory)
+  - [Pass data from CPU to GPU](#pass-data-from-cpu-to-gpu)
 
 ## Definition of the Compute Shader
 
@@ -366,3 +370,11 @@ computeShader.SetFloat("Time", Time.time);
 ```
 
 ![Picture](./docs/9.gif)
+
+## Memory Buffers
+
+### CPU and GPU structs
+
+### GPU Memory
+
+### Pass data from CPU to GPU

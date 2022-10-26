@@ -1,6 +1,7 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel SingleBubble
 #pragma kernel RandomBubbles
+#pragma kernel MovingBubbles
 #pragma kernel BubblesBackground
 
 #include "./shared/BresenhamCircle.hlsl"
@@ -34,4 +35,9 @@ void RandomBubbles (uint3 id : SV_DispatchThreadID)
     float2 position = random2(value) * TextureResolution;
     float2 radius = random(value) * CirclePositionAndRadius.z;
     drawCircle(position, radius, CircleColor, Result);
+}
+
+[numthreads(8,1,1)]
+void MovingBubbles (uint3 id : SV_DispatchThreadID)
+{
 }
