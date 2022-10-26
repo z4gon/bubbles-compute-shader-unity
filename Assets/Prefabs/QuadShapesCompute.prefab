@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 342186126388799009}
   - component: {fileID: 342186126388799013}
   m_Layer: 0
-  m_Name: QuadSimpleCompute
+  m_Name: QuadShapesCompute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
