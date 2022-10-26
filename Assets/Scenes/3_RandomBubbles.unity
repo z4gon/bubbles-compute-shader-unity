@@ -308,6 +308,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: KernelNames.Array.data[1]
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4547289210375071899, guid: f004b192258734819a9dd3c55432f48c, type: 3}
       propertyPath: m_RootOrder
       value: 2

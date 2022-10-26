@@ -4,9 +4,11 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
 {
     private const int THREAD_GROUP_COUNT = 1;
 
+    public bool DispatchOnUpdate = false;
     public Vector3 CirclePositionAndRadius = new Vector3(0, 0, 64);
     public Color CircleColor = new Color(0, 1, 0, 1);
     public Color BackgroundColor = new Color(0, 0, 1, 1);
+
 
     protected override void Start()
     {
@@ -35,6 +37,15 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
     {
         if (_isInitialized)
         {
+            DispatchShaders();
+        }
+    }
+
+    void Update()
+    {
+        if (DispatchOnUpdate)
+        {
+            computeShader.SetFloat("Time", Time.time);
             DispatchShaders();
         }
     }

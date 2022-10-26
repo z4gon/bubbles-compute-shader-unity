@@ -11,6 +11,8 @@ shared RWTexture2D<float4> Result;
 float3 CirclePositionAndRadius;
 float4 CircleColor;
 float4 BackgroundColor;
+int TextureResolution;
+float Time;
 
 [numthreads(1,1,1)]
 void SingleBubble (uint3 id : SV_DispatchThreadID)
@@ -27,5 +29,7 @@ void BubblesBackground (uint3 id : SV_DispatchThreadID)
 [numthreads(8,1,1)]
 void RandomBubbles (uint3 id : SV_DispatchThreadID)
 {
-    drawCircle(CirclePositionAndRadius.xy, CirclePositionAndRadius.z, CircleColor, Result);
+    float2 position = Time % TextureResolution;
+    float2 radius = Time % CirclePositionAndRadius.z;
+    drawCircle(position, radius, CircleColor, Result);
 }
