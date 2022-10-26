@@ -27,10 +27,9 @@ Written in HLSL in **Unity 2021.3.10f1**
   - [Draw a Circle](#draw-a-circle)
   - [Share Texture between Kernels](#share-texture-between-kernels)
   - [Randomness](#randomness)
-- [Memory Buffers](#memory-buffers)
-  - [CPU and GPU structs](#cpu-and-gpu-structs)
-  - [GPU memory](#gpu-memory)
-  - [Pass data from CPU to GPU](#pass-data-from-cpu-to-gpu)
+- [ComputeBuffer and StructuredBuffer](#computebuffer-and-structuredbuffer)
+  - [CPU Side](#cpu-side)
+  - [GPU Side](#gpu-side)
 
 ## Definition of the Compute Shader
 
@@ -371,10 +370,74 @@ computeShader.SetFloat("Time", Time.time);
 
 ![Picture](./docs/9.gif)
 
-## Memory Buffers
+## ComputeBuffer and StructuredBuffer
 
-### CPU and GPU structs
+### CPU Side
 
-### GPU Memory
+```cs
+public struct Bubble
+{
+    public Vector2 position;
+    public Vector2 velocity;
+    public float radius;
+}
+```
 
-### Pass data from CPU to GPU
+```cs
+private Bubble[] _bubbles;
+private ComputeBuffer _bubblesBuffer;
+```
+
+```cs
+private void InitBubblesBuffer()
+{
+    int kernelIndex = computeShader.FindKernel("MovingBubbles");
+
+    uint threadGroupSizeX;
+
+    // get the thread groups size in the x dimension, we don't care about y and z becasuse numthreads is 8x1x1
+    computeShader.GetKernelThreadGroupSizes(kernelIndex, out threadGroupSizeX, out _, out _);
+
+    // 32x1x1 x 8x1x1 = 32x8
+    int amountOfBubbles = ThreadGroupsCount * (int)threadGroupSizeX;
+
+    // create the array of bubbles with random values
+    _bubbles = Bubbles.CreateBubbles(amountOfBubbles, TEXTURE_RESOLUTION, TEXTURE_RESOLUTION);
+
+    // each Vector2 is two floats, total 5 floats per struct
+    int memorySizeOfBubble = (2 + 2 + 1) * sizeof(float);
+
+    // initialize the compute buffer
+    _bubblesBuffer = new ComputeBuffer(_bubbles.Length, amountOfBubbles * memorySizeOfBubble);
+
+    // fill with the data
+    _bubblesBuffer.SetData(_bubbles);
+
+    // set the buffer to the compute shader
+    computeShader.SetBuffer(kernelIndex, "BubblesBuffer", _bubblesBuffer);
+}
+```
+
+### GPU Side
+
+```c
+struct bubble
+{
+    float2 position;
+    float2 velocity;
+    float radius;
+};
+```
+
+```c
+StructuredBuffer<bubble> BubblesBuffer;
+```
+
+```c
+[numthreads(8,1,1)]
+void MovingBubbles (uint3 id : SV_DispatchThreadID)
+{
+    bubble b = BubblesBuffer[id.x];
+    drawCircle(b.position, b.radius, CircleColor, Result);
+}
+```

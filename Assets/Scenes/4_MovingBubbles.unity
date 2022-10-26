@@ -313,6 +313,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: ThreadGroupsCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
       propertyPath: KernelNames.Array.data[1]
       value: 8
       objectReference: {fileID: 0}

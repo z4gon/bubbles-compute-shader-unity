@@ -6,15 +6,20 @@
 
 #include "./shared/BresenhamCircle.hlsl"
 #include "./shared/Random.hlsl"
+#include "./shared/Bubble.hlsl"
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 shared RWTexture2D<float4> Result;
+
 float3 CirclePositionAndRadius;
 float4 CircleColor;
 float4 BackgroundColor;
+
 int TextureResolution;
 float Time;
+
+StructuredBuffer<bubble> BubblesBuffer;
 
 [numthreads(1,1,1)]
 void SingleBubble (uint3 id : SV_DispatchThreadID)
@@ -40,4 +45,6 @@ void RandomBubbles (uint3 id : SV_DispatchThreadID)
 [numthreads(8,1,1)]
 void MovingBubbles (uint3 id : SV_DispatchThreadID)
 {
+    bubble b = BubblesBuffer[id.x];
+    drawCircle(b.position, b.radius, CircleColor, Result);
 }

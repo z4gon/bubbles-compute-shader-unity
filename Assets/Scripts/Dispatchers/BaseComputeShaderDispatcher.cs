@@ -53,5 +53,5 @@ public class BaseComputeShaderDispatcher : MonoBehaviour
 
     // dispatches the kernel with the amount of thread groups = x * y * 1
     // we keep z = 1 because we are working on a 2D texture, no need for depth
-    protected void DispatchShader(int kernelIndex, int x, int y) => computeShader.Dispatch(kernelIndex, x, y, 1);
+    protected void DispatchShader(int kernelIndex, int x = 1, int y = 1, int z = 1) => computeShader.Dispatch(kernelIndex, x, y, 1);
 }
