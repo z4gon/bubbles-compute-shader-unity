@@ -29,7 +29,9 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
 
     private void DispatchShaders()
     {
+        // paint the background with 32x32x1 x 8x1x1 threads
         DispatchShader(_kernelIndexes[0], 32, 32);
+        // paint the bubbles with 1x1x1 thread groups (total threads will depend on numthreads(x,y,z))
         DispatchShader(_kernelIndexes[1], THREAD_GROUP_COUNT, THREAD_GROUP_COUNT);
     }
 

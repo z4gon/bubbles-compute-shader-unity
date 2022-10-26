@@ -26,6 +26,7 @@ Written in HLSL in **Unity 2021.3.10f1**
 - [Bubbles](#bubbles)
   - [Draw a Circle](#draw-a-circle)
   - [Share Texture between Kernels](#share-texture-between-kernels)
+  - [Randomness](#randomness)
 
 ## Definition of the Compute Shader
 
@@ -329,3 +330,39 @@ shared RWTexture2D<float4> Result;
 computeShader.SetTexture(_kernelIndexesA, "Result", _renderTexture);
 computeShader.SetTexture(_kernelIndexesB, "Result", _renderTexture);
 ```
+
+```cs
+// paint the background with 32x32x1 x 8x1x1 threads
+DispatchShader(_kernelIndexes[0], 32, 32);
+// paint a bubble with 1x1x1 threads
+DispatchShader(_kernelIndexes[1], THREAD_GROUP_COUNT, THREAD_GROUP_COUNT);
+```
+
+### Randomness
+
+- The `Time` variable can be passed down to the compute shader.
+
+> MyComputeShader.compute
+
+```c
+float Time;
+```
+
+```c
+[numthreads(8,1,1)]
+void RandomBubbles (uint3 id : SV_DispatchThreadID)
+{
+    float value = id.x + Time;
+    float2 position = random2(value) * TextureResolution;
+    float2 radius = random(value) * CirclePositionAndRadius.z;
+    drawCircle(position, radius, CircleColor, Result);
+}
+```
+
+> MyScript.cs
+
+```cs
+computeShader.SetFloat("Time", Time.time);
+```
+
+![Picture](./docs/9.gif)

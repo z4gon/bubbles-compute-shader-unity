@@ -4,6 +4,7 @@
 #pragma kernel BubblesBackground
 
 #include "./shared/BresenhamCircle.hlsl"
+#include "./shared/Random.hlsl"
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
@@ -29,7 +30,8 @@ void BubblesBackground (uint3 id : SV_DispatchThreadID)
 [numthreads(8,1,1)]
 void RandomBubbles (uint3 id : SV_DispatchThreadID)
 {
-    float2 position = Time % TextureResolution;
-    float2 radius = Time % CirclePositionAndRadius.z;
+    float value = id.x + Time;
+    float2 position = random2(value) * TextureResolution;
+    float2 radius = random(value) * CirclePositionAndRadius.z;
     drawCircle(position, radius, CircleColor, Result);
 }
