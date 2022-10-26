@@ -80,6 +80,7 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
         if (DispatchOnUpdate)
         {
             computeShader.SetFloat("Time", Time.time);
+            computeShader.SetFloat("DeltaTime", Time.deltaTime);
             DispatchShaders();
         }
     }

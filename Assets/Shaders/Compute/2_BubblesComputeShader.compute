@@ -18,8 +18,10 @@ float4 BackgroundColor;
 
 int TextureResolution;
 float Time;
+float DeltaTime;
 
-StructuredBuffer<bubble> BubblesBuffer;
+RWStructuredBuffer<bubble> BubblesBuffer;
+// StructuredBuffer<bubble> BubblesBuffer;
 
 [numthreads(1,1,1)]
 void SingleBubble (uint3 id : SV_DispatchThreadID)
@@ -45,6 +47,24 @@ void RandomBubbles (uint3 id : SV_DispatchThreadID)
 [numthreads(8,1,1)]
 void MovingBubbles (uint3 id : SV_DispatchThreadID)
 {
+    // update the position of the bubble
     bubble b = BubblesBuffer[id.x];
+    b.position = b.position + (b.velocity * DeltaTime);
+
+    if(b.position.x < -b.radius){
+        b.position.x = TextureResolution + b.radius;
+    }
+    if(b.position.x > TextureResolution + b.radius){
+        b.position.x = -b.radius;
+    }
+    if(b.position.y < -b.radius){
+        b.position.y = TextureResolution + b.radius;
+    }
+    if(b.position.y > TextureResolution  + b.radius){
+        b.position.y = -b.radius;
+    }
+
+    BubblesBuffer[id.x] = b;
+
     drawCircle(b.position, b.radius, CircleColor, Result);
 }

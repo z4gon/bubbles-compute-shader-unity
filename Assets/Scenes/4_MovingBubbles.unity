@@ -309,8 +309,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: CircleColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: CircleColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: CircleColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
       propertyPath: DispatchOnUpdate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: BackgroundColor.b
+      value: 0.34366724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: BackgroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
+      propertyPath: BackgroundColor.r
+      value: 0.7075472
       objectReference: {fileID: 0}
     - target: {fileID: 4547289210375071898, guid: f004b192258734819a9dd3c55432f48c, type: 3}
       propertyPath: ThreadGroupsCount

@@ -432,14 +432,20 @@ struct bubble
 ```
 
 ```c
-StructuredBuffer<bubble> BubblesBuffer;
+// StructuredBuffer<bubble> BubblesBuffer;
+RWStructuredBuffer<bubble> BubblesBuffer;
 ```
 
 ```c
 [numthreads(8,1,1)]
 void MovingBubbles (uint3 id : SV_DispatchThreadID)
 {
+    // update the position of the bubble
     bubble b = BubblesBuffer[id.x];
+    b.position = b.position + (b.velocity * DeltaTime);
+
+    BubblesBuffer[id.x] = b;
+
     drawCircle(b.position, b.radius, CircleColor, Result);
 }
 ```
