@@ -368,7 +368,9 @@ void RandomBubbles (uint3 id : SV_DispatchThreadID)
 computeShader.SetFloat("Time", Time.time);
 ```
 
-![Picture](./docs/9.gif)
+<!-- 9.mp4 -->
+
+https://user-images.githubusercontent.com/4588601/198099584-fa742a5e-6128-4ee7-ae54-5b3f53df3484.mp4
 
 ## ComputeBuffer and StructuredBuffer
 
