@@ -36,6 +36,7 @@ https://user-images.githubusercontent.com/4588601/198105793-7c92d31f-57f7-48f3-9
 - [ComputeBuffer and StructuredBuffer](#computebuffer-and-structuredbuffer)
   - [CPU Side](#cpu-side)
   - [GPU Side](#gpu-side)
+  - [Releasing](#releasing)
 
 ## Definition of the Compute Shader
 
@@ -79,6 +80,16 @@ _renderTexture.enableRandomWrite = true;
 // RenderTexture constructor does not actually create the hardware texture
 // https://docs.unity3d.com/ScriptReference/RenderTexture.Create.html
 _renderTexture.Create();
+```
+
+- Make sure to release the hardware memory and also let the garbage collector know it needs to pick up the native engine object.
+
+```cs
+if (_renderTexture != null)
+{
+    _renderTexture.Release();
+    Destroy(_renderTexture);
+}
 ```
 
 ### Renderer
@@ -453,6 +464,17 @@ void MovingBubbles (uint3 id : SV_DispatchThreadID)
     BubblesBuffer[id.x] = b;
 
     drawCircle(b.position, b.radius, CircleColor, Result);
+}
+```
+
+### Releasing
+
+- Make sure to release the hardware memory.
+
+```cs
+if (_bubblesBuffer != null)
+{
+    _bubblesBuffer.Release();
 }
 ```
 

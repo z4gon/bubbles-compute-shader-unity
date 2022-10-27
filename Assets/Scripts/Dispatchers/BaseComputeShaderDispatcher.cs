@@ -4,7 +4,7 @@ public class BaseComputeShaderDispatcher : MonoBehaviour
 {
     protected const int TEXTURE_RESOLUTION = 256;
 
-    public ComputeShader computeShader;
+    public ComputeShader ComputeShader;
 
     public KernelName[] KernelNames;
 
@@ -40,12 +40,12 @@ public class BaseComputeShaderDispatcher : MonoBehaviour
         for (int i = 0; i < KernelNames.Length; i++)
         {
             // get a reference to the kernel defined in the #pragma inside the compute shader
-            _kernelIndexes[i] = computeShader.FindKernel(KernelNames[i].ToString());
+            _kernelIndexes[i] = ComputeShader.FindKernel(KernelNames[i].ToString());
             // set the texture to the compute shader, so it can write to it
-            computeShader.SetTexture(_kernelIndexes[i], "Result", _renderTexture);
+            ComputeShader.SetTexture(_kernelIndexes[i], "Result", _renderTexture);
         }
 
-        computeShader.SetInt("TextureResolution", TEXTURE_RESOLUTION);
+        ComputeShader.SetInt("TextureResolution", TEXTURE_RESOLUTION);
 
         // set the texture to the material, so it can use the texture
         _renderer.material.SetTexture("_MainTex", _renderTexture);
@@ -53,5 +53,14 @@ public class BaseComputeShaderDispatcher : MonoBehaviour
 
     // dispatches the kernel with the amount of thread groups = x * y * 1
     // we keep z = 1 because we are working on a 2D texture, no need for depth
-    protected void DispatchShader(int kernelIndex, int x = 1, int y = 1, int z = 1) => computeShader.Dispatch(kernelIndex, x, y, 1);
+    protected void DispatchShader(int kernelIndex, int x = 1, int y = 1, int z = 1) => ComputeShader.Dispatch(kernelIndex, x, y, 1);
+
+    protected virtual void OnDestroy()
+    {
+        if (_renderTexture != null)
+        {
+            _renderTexture.Release();
+            Destroy(_renderTexture);
+        }
+    }
 }

@@ -22,9 +22,9 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
     {
         base.InitShader();
 
-        computeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
-        computeShader.SetVector("CircleColor", CircleColor);
-        computeShader.SetVector("BackgroundColor", BackgroundColor);
+        ComputeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
+        ComputeShader.SetVector("CircleColor", CircleColor);
+        ComputeShader.SetVector("BackgroundColor", BackgroundColor);
 
         InitBubblesBuffer();
 
@@ -33,12 +33,12 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
 
     private void InitBubblesBuffer()
     {
-        int kernelIndex = computeShader.FindKernel(KernelName.MovingBubbles.ToString());
+        int kernelIndex = ComputeShader.FindKernel(KernelName.MovingBubbles.ToString());
 
         uint threadGroupSizeX;
 
         // get the thread groups size in the x dimension, we don't care about y and z becasuse numthreads is 8x1x1
-        computeShader.GetKernelThreadGroupSizes(kernelIndex, out threadGroupSizeX, out _, out _);
+        ComputeShader.GetKernelThreadGroupSizes(kernelIndex, out threadGroupSizeX, out _, out _);
 
         // 32x1x1 x 8x1x1 = 32x8
         int amountOfBubbles = ThreadGroupsCount * (int)threadGroupSizeX;
@@ -56,7 +56,7 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
         _bubblesBuffer.SetData(_bubbles);
 
         // set the buffer to the compute shader
-        computeShader.SetBuffer(kernelIndex, "BubblesBuffer", _bubblesBuffer);
+        ComputeShader.SetBuffer(kernelIndex, "BubblesBuffer", _bubblesBuffer);
     }
 
     private void DispatchShaders()
@@ -79,9 +79,19 @@ public class BubblesComputeShaderDispatcher : BaseComputeShaderDispatcher
     {
         if (DispatchOnUpdate)
         {
-            computeShader.SetFloat("Time", Time.time);
-            computeShader.SetFloat("DeltaTime", Time.deltaTime);
+            ComputeShader.SetFloat("Time", Time.time);
+            ComputeShader.SetFloat("DeltaTime", Time.deltaTime);
             DispatchShaders();
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        if (_bubblesBuffer != null)
+        {
+            _bubblesBuffer.Release();
         }
     }
 }

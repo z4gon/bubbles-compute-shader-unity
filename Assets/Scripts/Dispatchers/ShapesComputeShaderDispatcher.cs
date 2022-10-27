@@ -24,8 +24,8 @@ public class ShapesComputeShaderDispatcher : BaseComputeShaderDispatcher
     {
         base.InitShader();
 
-        computeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
-        computeShader.SetVector("RectPositionAndSize", RectPositionAndSize);
+        ComputeShader.SetVector("CirclePositionAndRadius", CirclePositionAndRadius);
+        ComputeShader.SetVector("RectPositionAndSize", RectPositionAndSize);
 
         _isInitialized = true;
     }
